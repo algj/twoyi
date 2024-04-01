@@ -285,6 +285,7 @@ public final class RomManager {
             while ((count = inputStream.read(buffer)) > 0) {
                 os.write(buffer, 0, count);
             }
+            os.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
