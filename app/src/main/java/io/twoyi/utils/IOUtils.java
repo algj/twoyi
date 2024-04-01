@@ -132,28 +132,25 @@ public class IOUtils {
             fileWriter.flush();
         } catch (Throwable ignored) {
         } finally {
-            IOUtils.closeSilently(fileWriter);
+            closeSilently(fileWriter);
         }
     }
 
     public static String readContent(File file) {
-        if (file == null) {
+        if (file == null || !file.exists()) {
             return null;
         }
-        BufferedReader fileReader = null;
+        FileInputStream fileInputStream = null;
         try {
-            fileReader = new BufferedReader(new FileReader(file));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = fileReader.readLine()) != null) {
-                sb.append(line);
-                sb.append('\n');
-            }
-            return sb.toString().trim();
-        } catch (Throwable ignored) {
+            fileInputStream = new FileInputStream(file);
+            byte[] buffer = new byte[(int) file.length()];
+            fileInputStream.read(buffer);
+            return new String(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
         } finally {
-            IOUtils.closeSilently(fileReader);
+            closeSilently(fileInputStream);
         }
     }
 
