@@ -257,7 +257,7 @@ public class Render2Activity extends AppCompatActivity implements View.OnTouchLi
         for (Display.Mode supportedMode : supportedModes) {
             float refreshRate = supportedMode.getRefreshRate();
             if (refreshRate > fps) {
-                // fps = refreshRate;
+                fps = refreshRate;
             }
         }
 
